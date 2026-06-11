@@ -3,17 +3,18 @@
 
   <h1>PM Agent Team</h1>
 
-  <p><strong>AI 产品经理 · 多 Agent 集群</strong></p>
+  <p><strong>面向产品经理的多 Agent 调研自动化平台</strong></p>
 
-  <p>让 PM 30 秒拿到原本 2 天的调研产出 —— 竞品 / 访谈 / PRD / 社聆 一站式</p>
+  <p>竞品调研 · 访谈分析 · PRD 起草 · 社区聆听 —— 将以天计的重复调研工作压缩到分钟级</p>
 
   <p>
-    <img src="https://img.shields.io/badge/version-0.4-FF9500.svg" alt="version 0.4" />
-    <img src="https://img.shields.io/badge/backend-Go%201.22%2B-00ADD8.svg" alt="Go 1.22+" />
-    <img src="https://img.shields.io/badge/frontend-React%2018%20%2B%20Vite-61DAFB.svg" alt="React 18" />
-    <img src="https://img.shields.io/badge/llm-multi--provider-D97706.svg" alt="LLM" />
-    <img src="https://img.shields.io/badge/agents-10%2B-A855F7.svg" alt="10+ agents" />
-    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT" />
+    <img src="https://img.shields.io/badge/version-0.6-FF9500.svg" alt="version 0.6" />
+    <img src="https://img.shields.io/badge/backend-Go%201.22%2B-00ADD8.svg" alt="backend: Go 1.22+" />
+    <img src="https://img.shields.io/badge/frontend-React%2018%20%2B%20Vite-61DAFB.svg" alt="frontend: React 18 + Vite" />
+    <img src="https://img.shields.io/badge/LLM-multi--provider-D97706.svg" alt="LLM: multi-provider" />
+    <img src="https://img.shields.io/badge/agents-11%20roles-A855F7.svg" alt="agents: 11 roles" />
+    <img src="https://img.shields.io/badge/tests-race--clean-44CC11.svg" alt="tests: race-clean" />
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="license: MIT" />
   </p>
 
   <img src="./assets/banner.svg" width="100%" alt="banner" />
@@ -21,31 +22,34 @@
 
 ---
 
-## 解决什么问题
+## 项目定位
 
-中国 / 出海 SaaS 团队的 PM 每周有 **60% 工时**消耗在三件重复劳动里：
+SaaS 团队的产品经理有大量工时消耗在结构重复、信息密集的调研工作上。PM Agent Team 用多 Agent 流水线把这类工作自动化：
 
-| PM 痛点 | 人工耗时 | PM Agent Team 解决方案 |
+| 工作场景 | 人工耗时 | 本系统 |
 |---|---|---|
-| 🔍 **竞品调研** — 横向扫赛道 / 抓官网 / 看用户口碑 / 写矩阵 | 单次 1-3 天 | 多 Agent 并行 (搜索+抓取+社聆)，2 分钟出带引用的结构化报告 |
-| 🎙 **用户访谈分析** — 转写 / 打标 / 聚类 / 提需求 | 10 场访谈 ~ 1 周 | LLM 自动主题聚类 + 频次统计 + 原话引用 |
-| 📝 **PRD 起草** — 背景 / 目标 / 用户故事 / 验收标准 | 单份 0.5-1 天 | 一句话需求 → 结构化 PRD 草稿，含 4-6 user stories + 验收标准 |
-| 📡 **社区聆听** — 跟踪用户在 Reddit / 抖音 / X 上的真实声量 | 几乎不做 | 跨平台批量抓帖 (1000+/任务) + 相关性过滤 |
+| **竞品调研** — 横向扫描赛道、抓取官网、汇总用户口碑、产出对比矩阵 | 单次 1–3 天 | 搜索 / 抓取 / 社聆 Agent 并行执行，分钟级产出带引用的结构化报告 |
+| **用户访谈分析** — 转写打标、主题聚类、需求提取 | 10 场访谈约 1 周 | 自动主题聚类 + 频次统计 + 原话引用 + 带置信度的需求列表 |
+| **PRD 起草** — 背景、目标、用户故事、验收标准 | 单份 0.5–1 天 | 一句话需求生成结构化 PRD 草稿，含用户故事与验收标准 |
+| **社区聆听** — 跟踪 Reddit / Hacker News / X 等平台的真实用户声量 | 通常无人力覆盖 | 跨平台批量抓取（1000+ 帖/任务）+ 相关性过滤 + 洞察聚类 |
 
-**为什么是「Agent 集群」而不是「LLM 套壳」**：
+### 与「LLM 套壳」的区别
 
-- ⚙️ **多 Agent 真协作**：调度员 → 规划员 → 搜索员 + 抓取员 + 社聆员 (并行) → 结构化员 → 分析员 → 撰写员 → **复审员** (打分) → **自校正重写** (分数 < 7 自动 retry)
-- 🧠 **跨任务长期记忆**：项目空间 (Project) 把多个相关 task 归到一起，新任务自动召回历史调研作为上下文
-- 🔄 **追问增量执行**：报告完成后追问「再加一家 Lark」→ child task 跑完自动 merge 回 parent 报告
-- 🔌 **工具链嵌入**：Slack 推卡片 / Jira 自动建 issue / webhook 接收 issue.created 触发 PRD 起草
+- **多 Agent 协作流水线**：规划 → 搜索 / 抓取 / 社聆（并行）→ 结构化 → 分析 → 撰写 → 复审打分，复审分数低于阈值时携带 critique 自动重写一轮（self-correction loop）
+- **角色化专家集群**：11 个具名专家角色（用户研究员、市场情报分析师、精益教练、风险审计师等），按场景动态出场
+- **跨任务长期记忆**：项目空间（Project）聚合相关任务，新任务自动召回历史调研作为上下文
+- **增量追问执行**：报告完成后追问（如「再补充一家竞品」）会派生 child task，完成后自动合并回 parent 报告
+- **成本可观测**：内置 token / 成本追踪，per-task / per-agent / per-model 归因，支持任务预算上限
+- **错误恢复**：LLM 调用三次指数退避重试（区分瞬时与永久错误）；非关键 Agent 失败仅告警、不阻塞主流程
+- **工具链集成**：Slack 卡片推送、Jira issue 创建、Jira webhook 反向触发 PRD 起草
 
 ---
 
-## 截图
+## 界面
 
 <img src="./assets/screenshot-main.svg" width="100%" alt="主界面" />
 
-> 三栏布局：左侧任务列表 + 项目选择 / 中间 Agent 实时协作流（中文化叙事） / 右侧报告 + Reviewer 评分 + 追问框
+> 多页面布局：Dashboard 工作流总览 + 需求分析 / 竞品调研 / 需求验证三大板块。各板块页内展示任务列表、Agent 实时协作流（中文叙事）、报告预览、复审评分与追问入口。交互式架构图见 [`assets/architecture.html`](./assets/architecture.html)。
 
 ---
 
@@ -59,13 +63,13 @@ flowchart LR
     P --> R{Research<br/>研究阶段<br/>并行}
     R --> S1[Search<br/>DuckDuckGo / Tavily / Jina]
     R --> S2[Scraper<br/>Jina Reader 抓官网]
-    R --> S3[Social<br/>Reddit RSS · X · 抖音]
+    R --> S3[Social<br/>Reddit RSS · HN Algolia · X]
     S1 & S2 & S3 --> E[Extractor<br/>结构化竞品矩阵]
     E --> A[Analyzer<br/>SWOT + 差异化机会]
     A --> W[Writer<br/>渲染 Markdown 报告]
     W --> RV[Reviewer<br/>三维打分 0-10]
-    RV -->|score >= 7| OUT[✓ 输出报告]
-    RV -->|score < 7| W2[Writer Rewrite<br/>带 critique]
+    RV -->|score >= 7| OUT[输出报告]
+    RV -->|score < 7| W2[Writer Rewrite<br/>携带 critique]
     W2 --> RV2[Reviewer iter 2]
     RV2 --> OUT
 ```
@@ -75,13 +79,14 @@ flowchart LR
 ```mermaid
 flowchart TB
     subgraph Frontend
-        UI[React 18 + Vite + Tailwind<br/>iOS 风格 暖色系]
+        UI[React 18 + Vite + Tailwind<br/>Dashboard + 三大板块多页面]
     end
 
     subgraph Backend
         API[net/http + SSE]
         Worker[Worker Pool<br/>内存任务队列]
-        Pipeline[Agent Pipeline<br/>10+ agents]
+        Pipeline[Agent Pipeline<br/>11 个专家角色]
+        Metering[LLM 中间层<br/>Retry + Token/Cost 计量]
         Store[Memory Store<br/>Tasks / Reports / Posts / Projects / KB]
     end
 
@@ -97,6 +102,7 @@ flowchart TB
         Jina[Jina Reader/Search]
         Tavily[Tavily]
         Reddit[Reddit RSS]
+        HN[HN Algolia]
         Crawler[Tier2 Web Crawler<br/>BFS + robots.txt]
     end
 
@@ -109,89 +115,95 @@ flowchart TB
     API --> Worker
     Worker --> Pipeline
     Pipeline --> Store
-    Pipeline --> Direct
-    Pipeline --> Proxy
-    Pipeline --> Multi
-    Pipeline --> Mock
+    Pipeline --> Metering
+    Metering --> Direct
+    Metering --> Proxy
+    Metering --> Multi
+    Metering --> Mock
     Pipeline --> DDG
     Pipeline --> Jina
     Pipeline --> Tavily
     Pipeline --> Reddit
+    Pipeline --> HN
     Pipeline --> Crawler
     API --> Slack
     API --> Jira
 ```
 
-### 技术栈
+### 技术选型
 
 | 层 | 选型 | 理由 |
 |---|---|---|
-| **后端语言** | Go 1.22+ 标准库 net/http | 多 Agent 并发原生优势；零额外中间件 |
-| **LLM 路由** | 多 provider 抽象层（直连 / 代理 / 多模型路由 / mock 兜底） | provider 可插拔；切换走 ENV，零代码改动；无 key 自动 mock 跑 demo |
-| **任务队列** | Memory worker pool (River-ready) | 零依赖开箱跑；接口预留可切 PostgreSQL + River |
-| **数据存储** | Memory store (PG-ready) | KB / Posts / Tasks 三层存储；接口为 PG 升级预留 |
-| **搜索** | DuckDuckGo HTML / Tavily / Jina (with relevance filter) | 免费默认 + 可选付费升级；query 自动双语扩展 |
-| **抓取** | Jina Reader (`r.jina.ai/{url}`) | 免费、AI-friendly markdown 输出 |
-| **社交聆听** | Reddit Atom RSS · X / Douyin / TikTok / YouTube (stub + key) | Reddit 默认开 (无 key)；其他平台配 key 即接入 |
-| **简易爬虫** | 自研 BFS crawler (robots.txt + per-domain 限速) | 受礼貌爬取约束；可独立做行业页面快照 |
-| **流式协议** | Go 标准库 SSE | 比 WebSocket 简单一个数量级；自动断线重连 |
-| **前端框架** | Vite + React 18 + TypeScript strict | 0 ESLint 警告 / TS strict |
-| **UI 风格** | Tailwind 3 + Linear/Vercel 风专业灰白 | 中文化 trace + 评分进度条 + 追问框 |
+| **后端语言** | Go 1.22+，标准库 net/http | goroutine 天然适配多 Agent 并发；零额外中间件 |
+| **LLM 接入** | 多 provider 抽象层（直连 / 代理网关 / 多模型路由 / mock 兜底） | provider 通过环境变量切换，零代码改动；未配置 key 时自动降级 mock 模式 |
+| **LLM 可靠性** | RetryClient（3 次指数退避，区分瞬时 / 永久错误）+ MeteredClient（token / 成本计量） | 调用链 raw → Retry → Metered 装配，故障与成本均可观测 |
+| **任务队列** | 内存 worker pool | 零依赖开箱即用；接口预留 PostgreSQL + River 升级路径 |
+| **数据存储** | 内存 store（KB / Posts / Tasks 分层） | 接口面向 PostgreSQL 设计，迁移脚本已预留（`server/migrations/`） |
+| **搜索** | DuckDuckGo HTML / Tavily / Jina，统一相关性过滤 | 免费默认可用，付费 provider 可选；查询自动中英双语扩展 |
+| **抓取** | Jina Reader（`r.jina.ai/{url}`） | 免费，输出 AI 友好的 Markdown |
+| **社交聆听** | Reddit Atom RSS + HN Algolia（均无需 key）；X / 抖音 / TikTok / YouTube 配 key 接入 | 默认覆盖海外开发者与创业社区；其余平台按需启用 |
+| **轻量爬虫** | 自研 BFS crawler（robots.txt 遵循 + 按域限速） | 礼貌爬取约束下做行业页面快照 |
+| **流式协议** | SSE（Go 标准库） | 较 WebSocket 显著更简单，浏览器原生断线重连 |
+| **前端** | Vite + React 18 + TypeScript strict + react-router | 类型严格模式零警告；多页面按板块组织 |
+| **UI** | Tailwind CSS 3 | 中文化 Agent trace、评分进度条、追问交互 |
 
 ---
 
-## 30 秒 Quickstart
+## 快速开始
 
-### 0. 拉代码
+### 0. 获取代码
 
 ```bash
 git clone https://github.com/PLA-yi/PM_Agent_Team.git
 cd PM_Agent_Team
 ```
 
-### 1. 配置（最少配置：什么都不填也能跑）
+### 1. 配置
 
 ```bash
 cp .env.example .env
-# 任选一个 LLM provider key 填入；不填则自动走 mock 模式仍可演示完整 UI 链路
+# 填入任一 LLM provider 的 API key；
+# 不填写则自动进入 mock 模式，仍可完整演示 UI 与流水线链路
 ```
 
-### 2. 启动后端 (`:8080`)
+### 2. 启动后端（`:8080`）
 
 ```bash
 set -a && source .env && set +a
 cd server && go run ./cmd/server
 ```
 
-看到这行就 OK：
+启动成功的标志：
+
 ```
 PMHive listening on :8080
-  LLM:    mock=false   model=&lt;configured&gt;
+  LLM:    mock=false   model=<configured>
   Search: mock=false   provider=duckduckgo→mock(fallback)
   Scrape: mock=false   provider=jina_reader
-  Social: authed=[reddit]
+  Social: authed=[reddit hackernews]
 ```
 
-### 3. 启动前端 (`:5173`)
+### 3. 启动前端（`:5173`）
 
 ```bash
 cd web && npm install && npm run dev
 ```
 
-### 4. 用
+### 4. 使用
 
-打开 `http://localhost:5173`，左上选场景（竞品 / 访谈 / PRD / 社聆），输入需求，⌘+Enter 启动。
+打开 `http://localhost:5173`，从 Dashboard 进入任一板块（需求分析 / 竞品调研 / 需求验证），输入需求后 ⌘+Enter 启动任务。板块完成后可通过「下一板块」按钮把产出传递给下一环节，串成完整工作流。
 
 ---
 
-## 4 大场景示例
+## 场景示例
 
-| 场景 | 输入示例 | 真实耗时 | 产出 |
+| 场景 | 输入示例 | 参考耗时 | 产出 |
 |---|---|---|---|
-| 🔍 **竞品调研** | `国内 AI 笔记类产品` | 90s - 3min | 竞品矩阵 + SWOT + 用户真实声量 + 1000+ Reddit 帖子落库 |
-| 🎙 **访谈分析** | 粘贴访谈转写（多段空行分隔） | ~1 min | 主题聚类 + 频次 + 原话引用 + 需求列表（带置信度） |
-| 📝 **PRD 起草** | `做一个用户反馈悬浮按钮` | ~1.5 min | 完整 PRD：背景 / 目标 / 用户故事 / 验收标准 / 风险 |
-| 📡 **社交聆听** | `Cursor IDE` | ~1 min | Reddit 跨主题聚类，洞察+需求列表 |
+| **竞品调研** | `国内 AI 笔记类产品` | 90s–3min | 竞品矩阵 + SWOT + 用户真实声量，1000+ 社区帖子落库 |
+| **需求分析 / 验证** | 一句话需求或假设 | ~1 min | 用户研究 + 数据分析 + 风险审计视角的结构化结论 |
+| **访谈分析** | 粘贴访谈转写（空行分段） | ~1 min | 主题聚类 + 频次 + 原话引用 + 带置信度的需求列表 |
+| **PRD 起草** | `做一个用户反馈悬浮按钮` | ~1.5 min | 完整 PRD：背景 / 目标 / 用户故事 / 验收标准 / 风险 |
+| **社交聆听** | `Cursor IDE` | ~1 min | Reddit / HN 跨主题聚类，洞察与需求列表 |
 
 ---
 
@@ -200,72 +212,71 @@ cd web && npm install && npm run dev
 ```
 PM_Agent_Team/
 ├── README.md            # 本文档
-├── docker-compose.yml   # postgres + pgvector (生产路径，v0.5+)
+├── docker-compose.yml   # postgres + pgvector（生产路径预留）
 ├── .env.example         # 配置模板
 ├── Makefile
 ├── docs/
-│   └── data-pipeline.md # v0.7 数据壁垒设计
-├── assets/              # logo / banner / screenshots
+│   └── data-pipeline.md # 行业数据管道设计
+├── assets/              # logo / banner / 截图 / 交互式架构图
 ├── server/              # Go 后端
 │   ├── cmd/
 │   │   ├── server/      # HTTP server 入口
 │   │   └── scrape-demo/ # 爬虫独立 CLI demo
 │   ├── internal/
-│   │   ├── api/         # HTTP + SSE handler
-│   │   ├── agent/       # 10+ Agent (planner/search/scraper/social/extractor/analyzer/writer/reviewer/...)
-│   │   ├── llm/         # 多 provider 抽象（直连 / 代理 / 多路由 / Mock）
-│   │   ├── tools/       # DDG / Tavily / Jina / Mock
-│   │   │   └── social/  # Reddit (RSS) + X / Douyin / TikTok / YouTube stubs
-│   │   ├── crawler/     # Tier2 BFS web crawler (robots.txt + rate limit)
+│   │   ├── api/         # HTTP + SSE handler（含 roles / usage 接口）
+│   │   ├── agent/       # Agent 实现与 11 个角色定义（roles.go）
+│   │   ├── llm/         # 多 provider 抽象 + retry + token/cost 计量
+│   │   ├── tools/       # DuckDuckGo / Tavily / Jina / Mock
+│   │   │   └── social/  # Reddit RSS · HN Algolia · X / 抖音 / TikTok / YouTube
+│   │   ├── crawler/     # Tier2 BFS 爬虫（robots.txt + 按域限速）
 │   │   ├── integrations/
-│   │   │   ├── slack/   # Slack incoming webhook client
-│   │   │   └── jira/    # Jira REST API client
-│   │   ├── store/       # Memory store (PG-ready interface)
+│   │   │   ├── slack/   # Slack incoming webhook 客户端
+│   │   │   └── jira/    # Jira REST API 客户端
+│   │   ├── store/       # 内存 store（接口面向 PG 设计）
 │   │   ├── jobs/        # Worker pool
-│   │   └── stream/      # SSE event bus
-│   └── migrations/      # 001_init.sql (生产路径预留)
+│   │   └── stream/      # SSE 事件总线
+│   └── migrations/      # 001_init.sql（生产路径预留）
 └── web/                 # React 前端
     ├── src/
-    │   ├── App.tsx
+    │   ├── App.tsx                 # 路由与全局布局
+    │   ├── pages/
+    │   │   ├── Dashboard.tsx       # 工作流总览
+    │   │   └── ModulePage.tsx      # 板块通用页（需求 / 竞品 / 验证）
     │   ├── components/
     │   │   ├── TaskList.tsx
-    │   │   ├── AgentTimeline.tsx   # 中文化 agent 协作流
-    │   │   ├── ReportPreview.tsx   # 报告 + Reviewer 评分卡 + 追问框
-    │   │   └── PostsViewer.tsx     # 1000+ posts 表格 + 筛选
+    │   │   ├── AgentTimeline.tsx   # Agent 协作流（中文叙事）
+    │   │   ├── ReportPreview.tsx   # 报告 + 复审评分 + 成本面板 + 追问
+    │   │   └── PostsViewer.tsx     # 帖子表格与筛选
     │   └── lib/api.ts
     └── tailwind.config.js
 ```
 
 ---
 
-## 已实现里程碑
+## 版本历史
 
-- [x] **v0.1** — MVP 端到端：竞品调研单场景 demo，mock 模式开箱即跑
-- [x] **v0.2** — 访谈分析 + PRD 起草，4 场景闭环
-- [x] **v0.3** — 真实 LLM 多 provider 全打通（可插拔 + auto-fallback）
-- [x] **v0.4** ⭐ — 当前版本
-  - Reviewer Agent + Self-correction loop（评分 < 7 自动重写一轮）
-  - Project 项目空间 + 跨任务知识库（KB 注入新任务上下文）
-  - 真增量追问（child task 完成自动 merge 回 parent 报告）
-  - Slack incoming webhook + Jira REST client + webhook receiver
-  - 1000+ Reddit posts/任务（多 sort × 多时间窗 + 相关性过滤）
-  - 中文化 Agent Trace（13 agent 角色 + 14 stage + 10 engine 全中文）
-  - iOS 风专业 UI
+- [x] **v0.1** — MVP 端到端：竞品调研单场景，mock 模式开箱即用
+- [x] **v0.2** — 访谈分析 + PRD 起草，四场景闭环
+- [x] **v0.3** — 多 LLM provider 接入（可插拔 + 自动降级）
+- [x] **v0.4** — Reviewer + self-correction loop；项目空间与跨任务知识库；增量追问（child task 自动合并）；Slack / Jira 集成；1000+ 帖/任务的社聆抓取；中文化 Agent trace
+- [x] **v0.5** — 多页面板块化（Dashboard + 需求分析 / 竞品调研 / 需求验证）；11 个角色化专家集群与角色 API；板块间工作流串联；新增 Hacker News（Algolia）数据源
+- [x] **v0.6** ⭐ — 当前版本
+  - Token / 成本追踪：per-task / per-agent / per-model 归因，任务预算上限（`TASK_BUDGET_USD`），`GET /api/tasks/{id}/usage` 实时查询
+  - LLM 重试：3 次指数退避，区分瞬时（429 / 5xx / 超时）与永久（4xx / 解析）错误
+  - 可选 Agent 机制：非关键 Agent 失败仅告警，不阻塞主流程
 
 ## Roadmap
 
-- [ ] **v0.5** — pgvector 升级 KB（embedding-based RAG，跨任务召回质量翻倍）
-- [ ] **v0.6** — Eval 飞轮（A/B prompt 框架 + 周回放 100 sample）
-- [ ] **v0.7** — 多模态（截图 OCR / PDF 解析 / 录音转写）
-- [ ] **v0.8** — 团队协作（多用户 / 评审流 / 评论 / changelog）
-- [ ] **v0.9** — 行业数据管道（ProductHunt / HN / GitHub / Crunchbase 定时 ingest）
+- [ ] **v0.7** — pgvector 知识库升级（embedding 召回）+ Eval 框架（A/B prompt + 定期回放）
+- [ ] **v0.8** — 多模态输入（截图 OCR / PDF 解析 / 录音转写）
+- [ ] **v0.9** — 团队协作（多用户 / 评审流 / 评论）+ 行业数据管道（ProductHunt / GitHub / Crunchbase 定时 ingest）
 - [ ] **v1.0** — 公开 Beta + 落地页 + 计费
 
-详细设计：`docs/data-pipeline.md`
+数据管道详细设计见 [`docs/data-pipeline.md`](./docs/data-pipeline.md)。
 
 ---
 
-## API 速查
+## API 参考
 
 | 方法 | 路径 | 说明 |
 |---|---|---|
@@ -273,53 +284,63 @@ PM_Agent_Team/
 | `POST` | `/api/tasks` | 创建任务 `{scenario, input, project_id?}` |
 | `GET` | `/api/tasks` | 任务列表 |
 | `GET` | `/api/tasks/{id}` | 任务状态 |
-| `GET` | `/api/tasks/{id}/stream` | **SSE** 实时事件流 |
-| `GET` | `/api/tasks/{id}/report` | 报告 + sources + metadata.review |
-| `GET` | `/api/tasks/{id}/posts` | 社交平台帖子列表（支持 platform/q/limit/offset 筛选） |
-| `POST` | `/api/tasks/{id}/followup` | 追问 → spawn child task |
+| `GET` | `/api/tasks/{id}/stream` | SSE 实时事件流 |
+| `GET` | `/api/tasks/{id}/report` | 报告 + 引用源 + 复审元数据 |
+| `GET` | `/api/tasks/{id}/traces` | Agent 执行轨迹 |
+| `GET` | `/api/tasks/{id}/posts` | 社交帖子列表（支持 platform / q / limit / offset 筛选） |
+| `GET` | `/api/tasks/{id}/usage` | 任务 token / 成本用量 |
+| `POST` | `/api/tasks/{id}/followup` | 追问，派生 child task |
 | `POST` | `/api/projects` | 创建项目 |
 | `GET` | `/api/projects` | 项目列表 |
-| `GET` | `/api/projects/{id}/tasks` | 项目下任务 |
-| `POST` | `/api/integrations/slack/notify` | 推 Slack 卡片 |
+| `GET` | `/api/projects/{id}/tasks` | 项目下任务列表 |
+| `GET` | `/api/agents/roles` | 全部专家角色 |
+| `GET` | `/api/agents/roles/{scenario}` | 指定场景的出场角色 |
+| `POST` | `/api/integrations/slack/notify` | 推送 Slack 卡片 |
 | `POST` | `/api/integrations/jira/issue` | 创建 Jira issue |
-| `POST` | `/api/webhooks/jira` | 接收 Jira issue.created → 自动起草 PRD |
+| `POST` | `/api/webhooks/jira` | 接收 Jira issue.created，自动起草 PRD |
 | `GET` | `/api/integrations/status` | 集成配置状态 |
+
+`scenario` 取值：`requirement_analysis` / `competitor_research` / `requirement_validation` / `interview_analysis` / `prd_drafting` / `social_listening`。
 
 ---
 
-## 测试
+## 测试与质量
 
 ```bash
-cd server && go test ./... -race          # 全 race-clean
-cd web && npx tsc -b                       # TypeScript strict 0 警告
-cd web && npx vite build                   # 生产构建
+cd server && go test ./... -race   # 全部单测 race-clean
+cd web && npx tsc -b               # TypeScript strict，零警告
+cd web && npx vite build           # 生产构建
 ```
 
 ---
 
 ## 配置
 
-`.env` 关键变量：
+`.env` 关键变量（完整模板见 [`.env.example`](./.env.example)）：
 
 | 变量 | 默认 | 说明 |
 |---|---|---|
-| `LLM_PROVIDER` | auto | provider 标识；留空走 auto 路由 |
-| `LLM_API_KEY_*` | — | 各 provider 的 API key（任选一个即可） |
-| `LLM_MODEL` | （由 provider 决定）| 模型 id |
+| `LLM_PROVIDER` | auto | provider 标识；留空走自动路由 |
+| `LLM_MODEL` | 由 provider 决定 | 模型 id |
+| `LLM_BASE_URL` | — | 自定义网关地址（可选） |
+| `OPENROUTER_API_KEY` 等 | — | 各 provider 的 API key，任选其一；均不配置则进入 mock 模式 |
 | `MOCK_MODE` | `auto` | `auto` / `always` / `never` |
-| `TAVILY_API_KEY` | — | Tavily 搜索 key（可选） |
+| `TASK_BUDGET_USD` | `1.0` | 单任务 LLM 成本预算上限 |
+| `SEARCH_PROVIDER` | auto | 搜索 provider；`TAVILY_API_KEY` / `JINA_API_KEY` 可选 |
 | `SLACK_WEBHOOK_URL` | — | Slack incoming webhook |
 | `JIRA_BASE_URL` / `JIRA_EMAIL` / `JIRA_API_TOKEN` | — | Jira 集成三件套 |
-| `X_BEARER_TOKEN` / `DOUYIN_COOKIE` / `TIKTOK_SESSIONID` / `YOUTUBE_API_KEY` | — | 社交平台 key（可选；不配则 stub） |
+| `X_BEARER_TOKEN` / `DOUYIN_COOKIE` / `TIKTOK_SESSIONID` / `YOUTUBE_API_KEY` | — | 社交平台凭据（可选；不配置则为 stub） |
+| `HTTP_ADDR` | `:8080` | 服务监听地址 |
+| `CORS_ORIGINS` | `http://localhost:5173` | 允许的跨域来源 |
 
 ---
 
 ## License
 
-MIT — see [LICENSE](./LICENSE)
+MIT — 见 [LICENSE](./LICENSE)
 
 ---
 
 <div align="center">
-  <sub>Built with multi-agent collaboration · v0.4</sub>
+  <sub>PM Agent Team · v0.6</sub>
 </div>
