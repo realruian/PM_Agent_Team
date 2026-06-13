@@ -1,0 +1,50 @@
+# CI：后端 Go 单测（race）+ 前端 TypeScript 构建
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# 同一分支新推送自动取消上一次未完成的运行
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: 后端 · Go test (race)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v4
+      - name: 安装 Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: server/go.mod   # 版本以 go.mod 为准
+          cache-dependency-path: server/go.sum
+      - name: go vet
+        run: go vet ./...
+      - name: go test -race
+        run: go test ./... -race
+
+  frontend:
+    name: 前端 · tsc + vite build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - name: 安装 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: 安装依赖
+        run: npm ci
+      - name: 构建（tsc -b && vite build，含 strict 类型检查）
+        run: npm run build
